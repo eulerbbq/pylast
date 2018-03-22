@@ -48,8 +48,8 @@ class TestPyLastTrack(PyLastTestCase):
         artist = "Test Artist"
         title = "test title"
         track = pylast.Track(
-            artist=artist, title=title,
-            network=self.network, username=self.username)
+            artist=artist, title=title, network=self.network, username=self.username
+        )
 
         # Act
         count = track.get_userplaycount()
@@ -62,8 +62,8 @@ class TestPyLastTrack(PyLastTestCase):
         artist = "Test Artist"
         title = "test title"
         track = pylast.Track(
-            artist=artist, title=title,
-            network=self.network, username=self.username)
+            artist=artist, title=title, network=self.network, username=self.username
+        )
 
         # Act
         loved = track.get_userloved()
@@ -158,6 +158,7 @@ class TestPyLastTrack(PyLastTestCase):
             if str(track.item) == "Madonna - Vogue":
                 found = True
                 break
+
         self.assertTrue(found)
 
     def test_track_get_similar_limits(self):

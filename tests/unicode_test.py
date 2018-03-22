@@ -7,19 +7,20 @@ import pylast
 
 
 def mock_network():
-    return mock.Mock(
-        _get_ws_auth=mock.Mock(return_value=("", "", ""))
-    )
+    return mock.Mock(_get_ws_auth=mock.Mock(return_value=("", "", "")))
 
 
-@pytest.mark.parametrize('artist', [
-    u'\xe9lafdasfdsafdsa', u'ééééééé',
-    pylast.Artist(u'B\xe9l', mock_network()),
-    'fdasfdsafsaf not unicode',
-])
+@pytest.mark.parametrize(
+    'artist',
+    [
+        u'\xe9lafdasfdsafdsa',
+        u'ééééééé',
+        pylast.Artist(u'B\xe9l', mock_network()),
+        'fdasfdsafsaf not unicode',
+    ],
+)
 def test_get_cache_key(artist):
-    request = pylast._Request(mock_network(), 'some_method',
-                              params={'artist': artist})
+    request = pylast._Request(mock_network(), 'some_method', params={'artist': artist})
     request._get_cache_key()
 
 

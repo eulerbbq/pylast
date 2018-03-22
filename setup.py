@@ -7,8 +7,9 @@ setup(
     version="2.2.0.dev0",
     author="Amr Hassan <amr.hassan@gmail.com> and Contributors",
     install_requires=['six'],
-    tests_require=['mock', 'pytest', 'coverage', 'pycodestyle', 'pyyaml',
-                   'pyflakes', 'flaky'],
+    tests_require=[
+        'mock', 'pytest', 'coverage', 'pycodestyle', 'pyyaml', 'pyflakes', 'flaky'
+    ],
     description="A Python interface to Last.fm and Libre.fm",
     author_email="amr.hassan@gmail.com",
     url="https://github.com/pylast/pylast",
@@ -31,7 +32,7 @@ setup(
     python_requires='>=2.7.10, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
     keywords=["Last.fm", "music", "scrobble", "scrobbling"],
     packages=find_packages(exclude=('tests*',)),
-    license="Apache2"
+    license="Apache2",
 )
 
 # End of file

@@ -19,8 +19,7 @@ class TestPyLastArtist(PyLastTestCase):
         representation = repr(artist)
 
         # Assert
-        self.assertTrue(
-            representation.startswith("pylast.Artist('Test Artist',"))
+        self.assertTrue(representation.startswith("pylast.Artist('Test Artist',"))
 
     def test_artist_is_hashable(self):
         # Arrange
@@ -136,7 +135,7 @@ class TestPyLastArtist(PyLastTestCase):
     def test_tag_artist(self):
         # Arrange
         artist = self.network.get_artist("Test Artist")
-#         artist.clear_tags()
+        #         artist.clear_tags()
 
         # Act
         artist.add_tag("testing")
@@ -149,6 +148,7 @@ class TestPyLastArtist(PyLastTestCase):
             if tag.name == "testing":
                 found = True
                 break
+
         self.assertTrue(found)
 
     def test_remove_tag_of_type_text(self):
@@ -167,6 +167,7 @@ class TestPyLastArtist(PyLastTestCase):
             if tag.name == "testing":
                 found = True
                 break
+
         self.assertFalse(found)
 
     def test_remove_tag_of_type_tag(self):
@@ -185,6 +186,7 @@ class TestPyLastArtist(PyLastTestCase):
             if tag.name == "testing":
                 found = True
                 break
+
         self.assertFalse(found)
 
     def test_remove_tags(self):
@@ -285,8 +287,7 @@ class TestPyLastArtist(PyLastTestCase):
 
     def test_get_userplaycount(self):
         # Arrange
-        artist = pylast.Artist("John Lennon", self.network,
-                               username=self.username)
+        artist = pylast.Artist("John Lennon", self.network, username=self.username)
 
         # Act
         playcount = artist.get_userplaycount()

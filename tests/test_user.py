@@ -155,19 +155,20 @@ class TestPyLastUser(PyLastTestCase):
     # fails due Last.fm's complaining of hitting the rate limit, even when
     # limited to one call per second. The ToS allows 5 calls per second.
     # def test_get_all_scrobbles(self):
-        # # Arrange
-        # lastfm_user = self.network.get_user("RJ")
-        # self.network.enable_rate_limit() # this is going to be slow...
+    # # Arrange
+    # lastfm_user = self.network.get_user("RJ")
+    # self.network.enable_rate_limit() # this is going to be slow...
 
-        # # Act
-        # tracks = lastfm_user.get_recent_tracks(limit=None)
+    # # Act
+    # tracks = lastfm_user.get_recent_tracks(limit=None)
 
-        # # Assert
-        # self.assertGreaterEqual(len(tracks), 0)
+    # # Assert
+    # self.assertGreaterEqual(len(tracks), 0)
 
     def test_pickle(self):
         # Arrange
         import pickle
+
         lastfm_user = self.network.get_user(self.username)
         filename = str(self.unix_timestamp()) + ".pkl"
 
@@ -359,15 +360,16 @@ class TestPyLastUser(PyLastTestCase):
         lastfm_user = self.network.get_user("RJ")
 
         from datetime import datetime
+
         start = datetime(2011, 7, 21, 15, 10)
         end = datetime(2011, 7, 21, 15, 15)
         import calendar
+
         utc_start = calendar.timegm(start.utctimetuple())
         utc_end = calendar.timegm(end.utctimetuple())
 
         # Act
-        tracks = lastfm_user.get_recent_tracks(time_from=utc_start,
-                                               time_to=utc_end)
+        tracks = lastfm_user.get_recent_tracks(time_from=utc_start, time_to=utc_end)
 
         # Assert
         self.assertEqual(len(tracks), 1)

@@ -22,8 +22,7 @@ class TestPyLastWithLibreFm(unittest.TestCase):
         password_hash = secrets["password_hash"]
 
         # Act
-        network = pylast.LibreFMNetwork(
-            password_hash=password_hash, username=username)
+        network = pylast.LibreFMNetwork(password_hash=password_hash, username=username)
         artist = network.get_artist("Radiohead")
         name = artist.get_name()
 
@@ -35,8 +34,7 @@ class TestPyLastWithLibreFm(unittest.TestCase):
         secrets = load_secrets()
         username = secrets["username"]
         password_hash = secrets["password_hash"]
-        network = pylast.LibreFMNetwork(
-            password_hash=password_hash, username=username)
+        network = pylast.LibreFMNetwork(password_hash=password_hash, username=username)
 
         # Act
         representation = repr(network)

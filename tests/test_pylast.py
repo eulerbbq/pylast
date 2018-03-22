@@ -16,6 +16,7 @@ def load_secrets():
     secrets_file = "test_pylast.yaml"
     if os.path.isfile(secrets_file):
         import yaml  # pip install pyyaml
+
         with open(secrets_file, "r") as f:  # see example_test_pylast.yaml
             doc = yaml.load(f)
     else:
@@ -32,7 +33,6 @@ def load_secrets():
 
 @flaky(max_runs=5, min_passes=1)
 class PyLastTestCase(unittest.TestCase):
-
     secrets = None
 
     def unix_timestamp(self):
@@ -49,8 +49,11 @@ class PyLastTestCase(unittest.TestCase):
         API_SECRET = self.__class__.secrets["api_secret"]
 
         self.network = pylast.LastFMNetwork(
-            api_key=API_KEY, api_secret=API_SECRET,
-            username=self.username, password_hash=password_hash)
+            api_key=API_KEY,
+            api_secret=API_SECRET,
+            username=self.username,
+            password_hash=password_hash,
+        )
 
     def helper_is_thing_hashable(self, thing):
         # Arrange
