@@ -22,10 +22,10 @@ def load_secrets():
     else:
         doc = {}
         try:
-            doc["username"] = os.environ['PYLAST_USERNAME'].strip()
-            doc["password_hash"] = os.environ['PYLAST_PASSWORD_HASH'].strip()
-            doc["api_key"] = os.environ['PYLAST_API_KEY'].strip()
-            doc["api_secret"] = os.environ['PYLAST_API_SECRET'].strip()
+            doc["username"] = os.environ["PYLAST_USERNAME"].strip()
+            doc["password_hash"] = os.environ["PYLAST_PASSWORD_HASH"].strip()
+            doc["api_key"] = os.environ["PYLAST_API_KEY"].strip()
+            doc["api_secret"] = os.environ["PYLAST_API_SECRET"].strip()
         except KeyError:
             pytest.skip("Missing environment variables: PYLAST_USERNAME etc.")
     return doc
@@ -122,5 +122,5 @@ class PyLastTestCase(unittest.TestCase):
         self.assertNotEqual(thing1, thing2)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main(failfast=True)

@@ -57,5 +57,5 @@ class TestPyLastLibrary(PyLastTestCase):
         self.assertEqual(library_user, user_to_get)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main(failfast=True)

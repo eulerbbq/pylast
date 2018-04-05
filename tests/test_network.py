@@ -352,5 +352,5 @@ class TestPyLastNetwork(PyLastTestCase):
         self.assertGreater(int(total), 10000)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main(failfast=True)

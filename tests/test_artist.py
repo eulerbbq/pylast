@@ -296,5 +296,5 @@ class TestPyLastArtist(PyLastTestCase):
         self.assertGreaterEqual(playcount, 0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main(failfast=True)

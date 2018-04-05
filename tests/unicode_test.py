@@ -11,20 +11,20 @@ def mock_network():
 
 
 @pytest.mark.parametrize(
-    'artist',
+    "artist",
     [
-        u'\xe9lafdasfdsafdsa',
-        u'ééééééé',
-        pylast.Artist(u'B\xe9l', mock_network()),
-        'fdasfdsafsaf not unicode',
+        u"\xe9lafdasfdsafdsa",
+        u"ééééééé",
+        pylast.Artist(u"B\xe9l", mock_network()),
+        "fdasfdsafsaf not unicode",
     ],
 )
 def test_get_cache_key(artist):
-    request = pylast._Request(mock_network(), 'some_method', params={'artist': artist})
+    request = pylast._Request(mock_network(), "some_method", params={"artist": artist})
     request._get_cache_key()
 
 
-@pytest.mark.parametrize('obj', [pylast.Artist(u'B\xe9l', mock_network())])
+@pytest.mark.parametrize("obj", [pylast.Artist(u"B\xe9l", mock_network())])
 def test_cast_and_hash(obj):
     assert type(six.text_type(obj)) is six.text_type
     assert isinstance(hash(obj), int)

@@ -31,13 +31,13 @@ import tempfile
 import time
 import xml.dom
 
-__version__ = '2.2.0.dev0'
-__author__ = 'Amr Hassan, hugovk, Mice Pápai'
+__version__ = "2.2.0.dev0"
+__author__ = "Amr Hassan, hugovk, Mice Pápai"
 __copyright__ = (
-    'Copyright (C) 2008-2010 Amr Hassan, 2013-2018 hugovk, ' '2017 Mice Pápai'
+    "Copyright (C) 2008-2010 Amr Hassan, 2013-2018 hugovk, " "2017 Mice Pápai"
 )
 __license__ = "apache2"
-__email__ = 'amr.hassan@gmail.com'
+__email__ = "amr.hassan@gmail.com"
 
 
 if sys.version_info.major == 2:
@@ -67,12 +67,12 @@ STATUS_INVALID_SIGNATURE = 13
 STATUS_TOKEN_UNAUTHORIZED = 14
 STATUS_TOKEN_EXPIRED = 15
 
-PERIOD_OVERALL = 'overall'
-PERIOD_7DAYS = '7day'
-PERIOD_1MONTH = '1month'
-PERIOD_3MONTHS = '3month'
-PERIOD_6MONTHS = '6month'
-PERIOD_12MONTHS = '12month'
+PERIOD_OVERALL = "overall"
+PERIOD_7DAYS = "7day"
+PERIOD_1MONTH = "1month"
+PERIOD_3MONTHS = "3month"
+PERIOD_6MONTHS = "6month"
+PERIOD_12MONTHS = "12month"
 
 DOMAIN_ENGLISH = 0
 DOMAIN_GERMAN = 1
@@ -665,18 +665,18 @@ class LastFMNetwork(_Network):
             password_hash=password_hash,
             token=token,
             domain_names={
-                DOMAIN_ENGLISH: 'www.last.fm',
-                DOMAIN_GERMAN: 'www.last.fm/de',
-                DOMAIN_SPANISH: 'www.last.fm/es',
-                DOMAIN_FRENCH: 'www.last.fm/fr',
-                DOMAIN_ITALIAN: 'www.last.fm/it',
-                DOMAIN_POLISH: 'www.last.fm/pl',
-                DOMAIN_PORTUGUESE: 'www.last.fm/pt',
-                DOMAIN_SWEDISH: 'www.last.fm/sv',
-                DOMAIN_TURKISH: 'www.last.fm/tr',
-                DOMAIN_RUSSIAN: 'www.last.fm/ru',
-                DOMAIN_JAPANESE: 'www.last.fm/ja',
-                DOMAIN_CHINESE: 'www.last.fm/zh',
+                DOMAIN_ENGLISH: "www.last.fm",
+                DOMAIN_GERMAN: "www.last.fm/de",
+                DOMAIN_SPANISH: "www.last.fm/es",
+                DOMAIN_FRENCH: "www.last.fm/fr",
+                DOMAIN_ITALIAN: "www.last.fm/it",
+                DOMAIN_POLISH: "www.last.fm/pl",
+                DOMAIN_PORTUGUESE: "www.last.fm/pt",
+                DOMAIN_SWEDISH: "www.last.fm/sv",
+                DOMAIN_TURKISH: "www.last.fm/tr",
+                DOMAIN_RUSSIAN: "www.last.fm/ru",
+                DOMAIN_JAPANESE: "www.last.fm/ja",
+                DOMAIN_CHINESE: "www.last.fm/zh",
             },
             urls={
                 "album": "music/%(artist)s/%(album)s",
@@ -818,7 +818,7 @@ class _Request(object):
         """Sign this request."""
 
         if "api_sig" not in self.params.keys():
-            self.params['api_sig'] = self._get_signature()
+            self.params["api_sig"] = self._get_signature()
 
     def _get_signature(self):
         """
@@ -877,13 +877,13 @@ class _Request(object):
 
         data = []
         for name in self.params.keys():
-            data.append('='.join((name, url_quote_plus(_string(self.params[name])))))
-        data = '&'.join(data)
+            data.append("=".join((name, url_quote_plus(_string(self.params[name])))))
+        data = "&".join(data)
 
         headers = {
             "Content-type": "application/x-www-form-urlencoded",
-            'Accept-Charset': 'utf-8',
-            'User-Agent': "pylast" + '/' + __version__,
+            "Accept-Charset": "utf-8",
+            "User-Agent": "pylast" + "/" + __version__,
         }
 
         (HOST_NAME, HOST_SUBDIR) = self.network.ws_server
@@ -897,7 +897,7 @@ class _Request(object):
 
             try:
                 conn.request(
-                    method='POST',
+                    method="POST",
                     url="https://" + HOST_NAME + HOST_SUBDIR,
                     body=data,
                     headers=headers,
@@ -909,7 +909,7 @@ class _Request(object):
             conn = HTTPSConnection(context=SSL_CONTEXT, host=HOST_NAME)
 
             try:
-                conn.request(method='POST', url=HOST_SUBDIR, body=data, headers=headers)
+                conn.request(method="POST", url=HOST_SUBDIR, body=data, headers=headers)
             except Exception as e:
                 raise NetworkError(self.network, e)
 
@@ -940,11 +940,11 @@ class _Request(object):
         except Exception as e:
             raise MalformedResponseError(self.network, e)
 
-        e = doc.getElementsByTagName('lfm')[0]
+        e = doc.getElementsByTagName("lfm")[0]
 
-        if e.getAttribute('status') != "ok":
-            e = doc.getElementsByTagName('error')[0]
-            status = e.getAttribute('code')
+        if e.getAttribute("status") != "ok":
+            e = doc.getElementsByTagName("error")[0]
+            status = e.getAttribute("code")
             details = e.firstChild.data.strip()
             raise WSError(self.network, status, details)
 
@@ -984,7 +984,7 @@ class SessionKeyGenerator(object):
         session.
         """
 
-        request = _Request(self.network, 'auth.getToken')
+        request = _Request(self.network, "auth.getToken")
 
         # default action is that a request is signed only when
         # a session key is provided.
@@ -992,7 +992,7 @@ class SessionKeyGenerator(object):
 
         doc = request.execute()
 
-        e = doc.getElementsByTagName('token')[0]
+        e = doc.getElementsByTagName("token")[0]
         return e.firstChild.data
 
     def get_web_auth_url(self):
@@ -1003,7 +1003,7 @@ class SessionKeyGenerator(object):
 
         token = self._get_web_auth_token()
 
-        url = '%(homepage)s/api/auth/?api_key=%(api)s&token=%(token)s' % {
+        url = "%(homepage)s/api/auth/?api_key=%(api)s&token=%(token)s" % {
             "homepage": self.network.homepage,
             "api": self.network.api_key,
             "token": token,
@@ -1024,7 +1024,7 @@ class SessionKeyGenerator(object):
             # This will raise a WSError if token is blank or unauthorized
             token = token
 
-        request = _Request(self.network, 'auth.getSession', {'token': token})
+        request = _Request(self.network, "auth.getSession", {"token": token})
 
         # default action is that a request is signed only when
         # a session key is provided.
@@ -1032,7 +1032,7 @@ class SessionKeyGenerator(object):
 
         doc = request.execute()
 
-        return doc.getElementsByTagName('key')[0].firstChild.data
+        return doc.getElementsByTagName("key")[0].firstChild.data
 
     def get_session_key(self, username, password_hash):
         """
@@ -1100,8 +1100,8 @@ class _BaseObject(object):
         values = map(six.text_type, self._get_params().values())
 
         return hash(self.network) + hash(
-            six.text_type(type(self)) +
-            "".join(list(self._get_params().keys()) + list(values)).lower()
+            six.text_type(type(self))
+            + "".join(list(self._get_params().keys()) + list(values)).lower()
         )
 
     def _extract_cdata_from_request(self, method_name, tag_name, params):
@@ -1255,9 +1255,9 @@ class _Taggable(object):
             tag = tag.get_name()
 
         params = self._get_params()
-        params['tags'] = tag
+        params["tags"] = tag
 
-        self._request(self.ws_prefix + '.addTags', False, params)
+        self._request(self.ws_prefix + ".addTags", False, params)
 
     def remove_tag(self, tag):
         """Remove a user's tag from this object."""
@@ -1266,9 +1266,9 @@ class _Taggable(object):
             tag = tag.get_name()
 
         params = self._get_params()
-        params['tag'] = tag
+        params["tag"] = tag
 
-        self._request(self.ws_prefix + '.removeTag', False, params)
+        self._request(self.ws_prefix + ".removeTag", False, params)
 
     def get_tags(self):
         """Returns a list of the tags set by the user to this object."""
@@ -1276,8 +1276,8 @@ class _Taggable(object):
         # Uncacheable because it can be dynamically changed by the user.
         params = self._get_params()
 
-        doc = self._request(self.ws_prefix + '.getTags', False, params)
-        tag_names = _extract_all(doc, 'name')
+        doc = self._request(self.ws_prefix + ".getTags", False, params)
+        tag_names = _extract_all(doc, "name")
         tags = []
         for tag in tag_names:
             tags.append(Tag(tag, self.network))
@@ -1334,14 +1334,14 @@ class _Taggable(object):
     def get_top_tags(self, limit=None):
         """Returns a list of the most frequently used Tags on this object."""
 
-        doc = self._request(self.ws_prefix + '.getTopTags', True)
+        doc = self._request(self.ws_prefix + ".getTopTags", True)
 
-        elements = doc.getElementsByTagName('tag')
+        elements = doc.getElementsByTagName("tag")
         seq = []
 
         for element in elements:
-            tag_name = _extract(element, 'name')
-            tagcount = _extract(element, 'count')
+            tag_name = _extract(element, "name")
+            tagcount = _extract(element, "count")
 
             seq.append(TopItem(Tag(tag_name, self.network), tagcount))
 
@@ -1463,7 +1463,7 @@ class _Opus(_BaseObject, _Taggable):
 
     def _get_params(self):
         return {
-            'artist': self.get_artist().get_name(), self.ws_prefix: self.get_title()
+            "artist": self.get_artist().get_name(), self.ws_prefix: self.get_title()
         }
 
     def get_artist(self):
@@ -1501,7 +1501,7 @@ class _Opus(_BaseObject, _Taggable):
             return
 
         params = self._get_params()
-        params['username'] = self.username
+        params["username"] = self.username
 
         doc = self._request(self.ws_prefix + ".getInfo", True, params)
         return _number(_extract(doc, "userplaycount"))
@@ -1521,7 +1521,7 @@ class _Opus(_BaseObject, _Taggable):
         doc = self._request(self.ws_prefix + ".getInfo", cacheable=True)
 
         try:
-            lfm = doc.getElementsByTagName('lfm')[0]
+            lfm = doc.getElementsByTagName("lfm")[0]
             opus = next(self._get_children_by_tag_name(lfm, self.ws_prefix))
             mbid = next(self._get_children_by_tag_name(opus, "mbid"))
             return mbid.firstChild.nodeValue
@@ -1533,7 +1533,7 @@ class _Opus(_BaseObject, _Taggable):
         for child in node.childNodes:
             if (
                 child.nodeType == child.ELEMENT_NODE
-                and (tag_name == '*' or child.tagName == tag_name)
+                and (tag_name == "*" or child.tagName == tag_name)
             ):
                 yield child
 
@@ -1557,7 +1557,7 @@ class Album(_Opus):
         """
 
         return _extract_all(
-            self._request(self.ws_prefix + ".getInfo", cacheable=True), 'image'
+            self._request(self.ws_prefix + ".getInfo", cacheable=True), "image"
         )[
             size
         ]
@@ -1591,7 +1591,7 @@ class Album(_Opus):
         title = _url_safe(self.get_title())
 
         return self.network._get_url(domain_name, self.ws_prefix) % {
-            'artist': artist, 'album': title
+            "artist": artist, "album": title
         }
 
 
@@ -1609,8 +1609,8 @@ class Artist(_BaseObject, _Taggable):
             * name str: The artist's name.
         """
 
-        _BaseObject.__init__(self, network, 'artist')
-        _Taggable.__init__(self, 'artist')
+        _BaseObject.__init__(self, network, "artist")
+        _Taggable.__init__(self, "artist")
 
         self.name = name
         self.username = username
@@ -1684,7 +1684,7 @@ class Artist(_BaseObject, _Taggable):
             return
 
         params = self._get_params()
-        params['username'] = self.username
+        params["username"] = self.username
 
         doc = self._request(self.ws_prefix + ".getInfo", True, params)
         return _number(_extract(doc, "userplaycount"))
@@ -1750,9 +1750,9 @@ class Artist(_BaseObject, _Taggable):
 
         params = self._get_params()
         if limit:
-            params['limit'] = limit
+            params["limit"] = limit
 
-        doc = self._request(self.ws_prefix + '.getSimilar', True, params)
+        doc = self._request(self.ws_prefix + ".getSimilar", True, params)
 
         names = _extract_all(doc, "name")
         matches = _extract_all(doc, "match")
@@ -1769,7 +1769,7 @@ class Artist(_BaseObject, _Taggable):
         """Returns a list of the top albums."""
         params = self._get_params()
         if limit:
-            params['limit'] = limit
+            params["limit"] = limit
 
         return self._get_things("getTopAlbums", "album", Album, params, cacheable)
 
@@ -1777,7 +1777,7 @@ class Artist(_BaseObject, _Taggable):
         """Returns a list of the most played Tracks by this artist."""
         params = self._get_params()
         if limit:
-            params['limit'] = limit
+            params["limit"] = limit
 
         return self._get_things("getTopTracks", "track", Track, params, cacheable)
 
@@ -1801,7 +1801,7 @@ class Artist(_BaseObject, _Taggable):
 
         artist = _url_safe(self.get_name())
 
-        return self.network._get_url(domain_name, "artist") % {'artist': artist}
+        return self.network._get_url(domain_name, "artist") % {"artist": artist}
 
 
 class Country(_BaseObject):
@@ -1830,7 +1830,7 @@ class Country(_BaseObject):
         return not self == other
 
     def _get_params(self):  # TODO can move to _BaseObject
-        return {'country': self.get_name()}
+        return {"country": self.get_name()}
 
     def get_name(self):
         """Returns the country name. """
@@ -1841,9 +1841,9 @@ class Country(_BaseObject):
         """Returns a sequence of the most played artists."""
         params = self._get_params()
         if limit:
-            params['limit'] = limit
+            params["limit"] = limit
 
-        doc = self._request('geo.getTopArtists', cacheable, params)
+        doc = self._request("geo.getTopArtists", cacheable, params)
 
         return _extract_top_artists(doc, self)
 
@@ -1851,7 +1851,7 @@ class Country(_BaseObject):
         """Returns a sequence of the most played tracks"""
         params = self._get_params()
         if limit:
-            params['limit'] = limit
+            params["limit"] = limit
 
         return self._get_things("getTopTracks", "track", Track, params, cacheable)
 
@@ -1875,7 +1875,7 @@ class Country(_BaseObject):
         country_name = _url_safe(self.get_name())
 
         return self.network._get_url(domain_name, "country") % {
-            'country_name': country_name
+            "country_name": country_name
         }
 
 
@@ -1887,7 +1887,7 @@ class Library(_BaseObject):
     __hash__ = _BaseObject.__hash__
 
     def __init__(self, user, network):
-        _BaseObject.__init__(self, network, 'library')
+        _BaseObject.__init__(self, network, "library")
 
         if isinstance(user, User):
             self.user = user
@@ -1902,7 +1902,7 @@ class Library(_BaseObject):
         return repr(self.get_user()) + "'s Library"
 
     def _get_params(self):
-        return {'user': self.user.get_name()}
+        return {"user": self.user.get_name()}
 
     def get_user(self):
         """Returns the user who owns this library."""
@@ -1936,8 +1936,8 @@ class Tag(_BaseObject, _Chartable):
     __hash__ = _BaseObject.__hash__
 
     def __init__(self, name, network):
-        _BaseObject.__init__(self, network, 'tag')
-        _Chartable.__init__(self, 'tag')
+        _BaseObject.__init__(self, network, "tag")
+        _Chartable.__init__(self, "tag")
 
         self.name = name
 
@@ -1971,9 +1971,9 @@ class Tag(_BaseObject, _Chartable):
         """Returns a list of the top albums."""
         params = self._get_params()
         if limit:
-            params['limit'] = limit
+            params["limit"] = limit
 
-        doc = self._request(self.ws_prefix + '.getTopAlbums', cacheable, params)
+        doc = self._request(self.ws_prefix + ".getTopAlbums", cacheable, params)
 
         return _extract_top_albums(doc, self.network)
 
@@ -1981,7 +1981,7 @@ class Tag(_BaseObject, _Chartable):
         """Returns a list of the most played Tracks for this tag."""
         params = self._get_params()
         if limit:
-            params['limit'] = limit
+            params["limit"] = limit
 
         return self._get_things("getTopTracks", "track", Track, params, cacheable)
 
@@ -1990,9 +1990,9 @@ class Tag(_BaseObject, _Chartable):
 
         params = self._get_params()
         if limit:
-            params['limit'] = limit
+            params["limit"] = limit
 
-        doc = self._request(self.ws_prefix + '.getTopArtists', cacheable, params)
+        doc = self._request(self.ws_prefix + ".getTopArtists", cacheable, params)
 
         return _extract_top_artists(doc, self.network)
 
@@ -2015,7 +2015,7 @@ class Tag(_BaseObject, _Chartable):
 
         name = _url_safe(self.get_name())
 
-        return self.network._get_url(domain_name, "tag") % {'name': name}
+        return self.network._get_url(domain_name, "tag") % {"name": name}
 
 
 class Track(_Opus):
@@ -2045,7 +2045,7 @@ class Track(_Opus):
             return
 
         params = self._get_params()
-        params['username'] = self.username
+        params["username"] = self.username
 
         doc = self._request(self.ws_prefix + ".getInfo", True, params)
         loved = _number(_extract(doc, "userloved"))
@@ -2081,12 +2081,12 @@ class Track(_Opus):
     def love(self):
         """Adds the track to the user's loved tracks. """
 
-        self._request(self.ws_prefix + '.love')
+        self._request(self.ws_prefix + ".love")
 
     def unlove(self):
         """Remove the track to the user's loved tracks. """
 
-        self._request(self.ws_prefix + '.unlove')
+        self._request(self.ws_prefix + ".unlove")
 
     def get_similar(self, limit=None):
         """
@@ -2096,14 +2096,14 @@ class Track(_Opus):
 
         params = self._get_params()
         if limit:
-            params['limit'] = limit
+            params["limit"] = limit
 
-        doc = self._request(self.ws_prefix + '.getSimilar', True, params)
+        doc = self._request(self.ws_prefix + ".getSimilar", True, params)
 
         seq = []
         for node in doc.getElementsByTagName(self.ws_prefix):
-            title = _extract(node, 'name')
-            artist = _extract(node, 'name', 1)
+            title = _extract(node, "name")
+            artist = _extract(node, "name", 1)
             match = _number(_extract(node, "match"))
 
             seq.append(SimilarItem(Track(artist, title, self.network), match))
@@ -2132,7 +2132,7 @@ class Track(_Opus):
         title = _url_safe(self.get_title())
 
         return self.network._get_url(domain_name, self.ws_prefix) % {
-            'artist': artist, 'title': title
+            "artist": artist, "title": title
         }
 
 
@@ -2144,8 +2144,8 @@ class User(_BaseObject, _Chartable):
     __hash__ = _BaseObject.__hash__
 
     def __init__(self, user_name, network):
-        _BaseObject.__init__(self, network, 'user')
-        _Chartable.__init__(self, 'user')
+        _BaseObject.__init__(self, network, "user")
+        _Chartable.__init__(self, "user")
 
         self.name = user_name
 
@@ -2188,7 +2188,7 @@ class User(_BaseObject, _Chartable):
         # "Can be limited to specific timeranges, defaults to all time."
 
         params = self._get_params()
-        params['artist'] = artist
+        params["artist"] = artist
 
         seq = []
         for track in _collect_nodes(
@@ -2230,7 +2230,7 @@ class User(_BaseObject, _Chartable):
 
         params = self._get_params()
         if limit:
-            params['limit'] = limit
+            params["limit"] = limit
 
         seq = []
         for track in _collect_nodes(
@@ -2251,22 +2251,22 @@ class User(_BaseObject, _Chartable):
         """
 
         params = self._get_params()
-        params['limit'] = '1'
+        params["limit"] = "1"
 
-        doc = self._request(self.ws_prefix + '.getRecentTracks', False, params)
+        doc = self._request(self.ws_prefix + ".getRecentTracks", False, params)
 
-        tracks = doc.getElementsByTagName('track')
+        tracks = doc.getElementsByTagName("track")
 
         if len(tracks) == 0:
             return None
 
         e = tracks[0]
 
-        if not e.hasAttribute('nowplaying'):
+        if not e.hasAttribute("nowplaying"):
             return None
 
-        artist = _extract(e, 'artist')
-        title = _extract(e, 'name')
+        artist = _extract(e, "artist")
+        title = _extract(e, "name")
 
         return Track(artist, title, self.network, self.name)
 
@@ -2292,17 +2292,17 @@ class User(_BaseObject, _Chartable):
 
         params = self._get_params()
         if limit:
-            params['limit'] = limit
+            params["limit"] = limit
         if time_from:
-            params['from'] = time_from
+            params["from"] = time_from
         if time_to:
-            params['to'] = time_to
+            params["to"] = time_to
 
         seq = []
         for track in _collect_nodes(
             limit, self, self.ws_prefix + ".getRecentTracks", cacheable, params
         ):
-            if track.hasAttribute('nowplaying'):
+            if track.hasAttribute("nowplaying"):
                 continue  # to prevent the now playing track from sneaking in
 
             title = _extract(track, "name")
@@ -2362,33 +2362,33 @@ class User(_BaseObject, _Chartable):
         """Returns the albums tagged by a user."""
 
         params = self._get_params()
-        params['tag'] = tag
-        params['taggingtype'] = 'album'
+        params["tag"] = tag
+        params["taggingtype"] = "album"
         if limit:
-            params['limit'] = limit
-        doc = self._request(self.ws_prefix + '.getpersonaltags', cacheable, params)
+            params["limit"] = limit
+        doc = self._request(self.ws_prefix + ".getpersonaltags", cacheable, params)
         return _extract_albums(doc, self.network)
 
     def get_tagged_artists(self, tag, limit=None):
         """Returns the artists tagged by a user."""
 
         params = self._get_params()
-        params['tag'] = tag
-        params['taggingtype'] = 'artist'
+        params["tag"] = tag
+        params["taggingtype"] = "artist"
         if limit:
             params["limit"] = limit
-        doc = self._request(self.ws_prefix + '.getpersonaltags', True, params)
+        doc = self._request(self.ws_prefix + ".getpersonaltags", True, params)
         return _extract_artists(doc, self.network)
 
     def get_tagged_tracks(self, tag, limit=None, cacheable=True):
         """Returns the tracks tagged by a user."""
 
         params = self._get_params()
-        params['tag'] = tag
-        params['taggingtype'] = 'track'
+        params["tag"] = tag
+        params["taggingtype"] = "track"
         if limit:
-            params['limit'] = limit
-        doc = self._request(self.ws_prefix + '.getpersonaltags', cacheable, params)
+            params["limit"] = limit
+        doc = self._request(self.ws_prefix + ".getpersonaltags", cacheable, params)
         return _extract_tracks(doc, self.network)
 
     def get_top_albums(self, period=PERIOD_OVERALL, limit=None, cacheable=True):
@@ -2403,11 +2403,11 @@ class User(_BaseObject, _Chartable):
         """
 
         params = self._get_params()
-        params['period'] = period
+        params["period"] = period
         if limit:
-            params['limit'] = limit
+            params["limit"] = limit
 
-        doc = self._request(self.ws_prefix + '.getTopAlbums', cacheable, params)
+        doc = self._request(self.ws_prefix + ".getTopAlbums", cacheable, params)
 
         return _extract_top_albums(doc, self.network)
 
@@ -2423,11 +2423,11 @@ class User(_BaseObject, _Chartable):
         """
 
         params = self._get_params()
-        params['period'] = period
+        params["period"] = period
         if limit:
             params["limit"] = limit
 
-        doc = self._request(self.ws_prefix + '.getTopArtists', True, params)
+        doc = self._request(self.ws_prefix + ".getTopArtists", True, params)
 
         return _extract_top_artists(doc, self.network)
 
@@ -2467,9 +2467,9 @@ class User(_BaseObject, _Chartable):
         """
 
         params = self._get_params()
-        params['period'] = period
+        params["period"] = period
         if limit:
-            params['limit'] = limit
+            params["limit"] = limit
 
         return self._get_things("getTopTracks", "track", Track, params, cacheable)
 
@@ -2506,7 +2506,7 @@ class User(_BaseObject, _Chartable):
 
         name = _url_safe(self.get_name())
 
-        return self.network._get_url(domain_name, "user") % {'name': name}
+        return self.network._get_url(domain_name, "user") % {"name": name}
 
     def get_library(self):
         """Returns the associated Library object. """

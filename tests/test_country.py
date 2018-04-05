@@ -37,5 +37,5 @@ class TestPyLastCountry(PyLastTestCase):
         self.assertEqual(url, "https://www.last.fm/place/italy")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main(failfast=True)

@@ -43,5 +43,5 @@ class TestPyLastWithLibreFm(unittest.TestCase):
         self.assertTrue(representation.startswith("pylast.LibreFMNetwork("))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main(failfast=True)

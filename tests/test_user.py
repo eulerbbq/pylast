@@ -125,7 +125,7 @@ class TestPyLastUser(PyLastTestCase):
     def test_now_playing_user_with_no_scrobbles(self):
         # Arrange
         # Currently test-account has no scrobbles:
-        user = self.network.get_user('test-account')
+        user = self.network.get_user("test-account")
 
         # Act
         current_track = user.get_now_playing()
@@ -291,7 +291,7 @@ class TestPyLastUser(PyLastTestCase):
         artist.add_tags(tags)
 
         # Act
-        artists = lastfm_user.get_tagged_artists('artisttagola', limit=1)
+        artists = lastfm_user.get_tagged_artists("artisttagola", limit=1)
 
         # Assert
         self.helper_only_one_thing_in_list(artists, pylast.Artist)
@@ -304,7 +304,7 @@ class TestPyLastUser(PyLastTestCase):
         album.add_tags(tags)
 
         # Act
-        albums = lastfm_user.get_tagged_albums('albumtagola', limit=1)
+        albums = lastfm_user.get_tagged_albums("albumtagola", limit=1)
 
         # Assert
         self.helper_only_one_thing_in_list(albums, pylast.Album)
@@ -317,7 +317,7 @@ class TestPyLastUser(PyLastTestCase):
         track.add_tags(tags)
 
         # Act
-        tracks = lastfm_user.get_tagged_tracks('tracktagola', limit=1)
+        tracks = lastfm_user.get_tagged_tracks("tracktagola", limit=1)
 
         # Assert
         self.helper_only_one_thing_in_list(tracks, pylast.Track)
@@ -406,5 +406,5 @@ class TestPyLastUser(PyLastTestCase):
         self.assertEqual(url, "https://www.last.fm/user/rj")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main(failfast=True)
