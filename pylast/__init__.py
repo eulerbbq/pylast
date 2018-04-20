@@ -286,7 +286,8 @@ class _Network(object):
         for node in doc.getElementsByTagName("track"):
             title = _extract(node, "name")
             artist = _extract(node, "name", 1)
-            track = Track(artist, title, self)
+            mbid = _extract(node, "mbid")
+            track = Track(artist, title, mbid, self)
             weight = _number(_extract(node, "playcount"))
             seq.append(TopItem(track, weight))
 
@@ -1962,8 +1963,8 @@ class Track(_Opus):
 
     __hash__ = _Opus.__hash__
 
-    def __init__(self, artist, title, network, username=None):
-        super(Track, self).__init__(artist, title, network, "track", username)
+    def __init__(self, artist, title, mbid, network, username=None):
+        super(Track, self).__init__(artist, title, mbid, network, "track", username)
 
     def get_correction(self):
         """Returns the corrected track name."""
